@@ -15,7 +15,8 @@ def convert_line_to_html(line, in_ulist, in_olist, in_paragraph):
     Converts a single line of Markdown to HTML.
     
     Supports converting Markdown headings (e.g., #, ##, ###), unordered lists 
-    (e.g., - item), ordered lists (e.g., * item), and paragraphs to corresponding HTML tags.
+    (e.g., - item), ordered lists (e.g., * item), paragraphs, bold (**text**),
+    and emphasis (__text__) to corresponding HTML tags.
     
     :param line: The line of Markdown to convert
     :param in_ulist: A boolean flag to indicate if the current line is inside an unordered list
@@ -46,6 +47,7 @@ def convert_line_to_html(line, in_ulist, in_olist, in_paragraph):
             html_line += "<ul>\n"
             in_ulist = True
         content = stripped_line[2:].strip()
+        content = parse_inline_markdown(content)  # Apply bold/emphasis parsing
         html_line += f"    <li>{content}</li>\n"
         return html_line, in_ulist, in_olist, in_paragraph
 
@@ -61,17 +63,19 @@ def convert_line_to_html(line, in_ulist, in_olist, in_paragraph):
             html_line += "<ol>\n"
             in_olist = True
         content = stripped_line[2:].strip()
+        content = parse_inline_markdown(content)  # Apply bold/emphasis parsing
         html_line += f"    <li>{content}</li>\n"
         return html_line, in_ulist, in_olist, in_paragraph
 
     # Handle paragraphs and line breaks
     if stripped_line:
+        content = parse_inline_markdown(stripped_line)  # Apply bold/emphasis parsing
         if not in_paragraph:
             html_line += "<p>\n"
             in_paragraph = True
         else:
             html_line += "    <br />\n"
-        html_line += f"    {stripped_line}\n"
+        html_line += f"    {content}\n"
         return html_line, in_ulist, in_olist, in_paragraph
 
     # Close any open paragraphs and lists when encountering a blank line
@@ -86,6 +90,21 @@ def convert_line_to_html(line, in_ulist, in_olist, in_paragraph):
         in_olist = False
 
     return html_line, in_ulist, in_olist, in_paragraph
+
+def parse_inline_markdown(text):
+    """
+    Parses inline Markdown syntax for bold (**text**) and emphasis (__text__).
+    
+    :param text: The text to parse
+    :return: The HTML-converted text
+    """
+    # Replace bold (**text**) with <b>text</b>
+    text = text.replace("**", "<b>", 1).replace("**", "</b>", 1)
+
+    # Replace emphasis (__text__) with <em>text</em>
+    text = text.replace("__", "<em>", 1).replace("__", "</em>", 1)
+
+    return text
 
 def main():
     # Check if the number of arguments is less than 2
