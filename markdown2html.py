@@ -34,13 +34,13 @@ def convert_line_to_html(line, in_list):
     # Check for unordered list item
     if line.startswith("- "):
         if not in_list:
-            html_line += "<ul>\n"
+            html_line += "<ol>\n"
             in_list = True
         content = line[2:].strip()
         html_line += f"    <li>{content}</li>\n"
     else:
         if in_list:
-            html_line += "</ul>\n"
+            html_line += "</ol>\n"
             in_list = False
         html_line += line  # Preserve other content
 
@@ -72,7 +72,7 @@ def main():
 
         # Close any open list at the end of the file
         if in_list:
-            html_file.write("</ul>\n")
+            html_file.write("</ol>\n")
 
     # Exit successfully
     sys.exit(0)
