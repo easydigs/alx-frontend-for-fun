@@ -10,23 +10,27 @@ Usage:
 import sys
 import os
 
+
 def convert_line_to_html(line, in_ulist, in_olist, in_paragraph):
     """
     Converts a single line of Markdown to HTML.
-    
-    Supports converting Markdown headings (e.g., #, ##, ###), unordered lists 
+    Supports converting Markdown headings (e.g., #, ##, ###), unordered lists
     (e.g., - item), ordered lists (e.g., * item), paragraphs, bold (**text**),
     and emphasis (__text__) to corresponding HTML tags.
-    
+
     :param line: The line of Markdown to convert
-    :param in_ulist: A boolean flag to indicate if the current line is inside an unordered list
-    :param in_olist: A boolean flag to indicate if the current line is inside an ordered list
-    :param in_paragraph: A boolean flag to indicate if the current line is inside a paragraph
-    :return: A tuple of the converted HTML line and the updated in_ulist, in_olist, and in_paragraph statuses
+    :param in_ulist: A boolean flag to indicate if the current line
+    is inside an unordered list
+    :param in_olist: A boolean flag to indicate if the current line
+    is inside an ordered list
+    :param in_paragraph: A boolean flag to indicate if the current
+    line is inside a paragraph
+    :return: A tuple of the converted HTML line and the updated in_ulist,
+    in_olist, and in_paragraph statuses
     """
     html_line = ""
     stripped_line = line.strip()
-    
+
     # Check for heading syntax
     if stripped_line.startswith("#"):
         heading_level = len(stripped_line.split(' ')[0])
@@ -69,7 +73,8 @@ def convert_line_to_html(line, in_ulist, in_olist, in_paragraph):
 
     # Handle paragraphs and line breaks
     if stripped_line:
-        content = parse_inline_markdown(stripped_line)  # Apply bold/emphasis parsing
+        content = parse_inline_markdown(stripped_line)
+        # Apply bold/emphasis parsing
         if not in_paragraph:
             html_line += "<p>\n"
             in_paragraph = True
@@ -91,10 +96,11 @@ def convert_line_to_html(line, in_ulist, in_olist, in_paragraph):
 
     return html_line, in_ulist, in_olist, in_paragraph
 
+
 def parse_inline_markdown(text):
     """
     Parses inline Markdown syntax for bold (**text**) and emphasis (__text__).
-    
+
     :param text: The text to parse
     :return: The HTML-converted text
     """
@@ -106,10 +112,12 @@ def parse_inline_markdown(text):
 
     return text
 
+
 def main():
     # Check if the number of arguments is less than 2
     if len(sys.argv) < 3:
-        print("Usage: ./markdown2html.py README.md README.html", file=sys.stderr)
+        print("Usage: ./markdown2html.py README.md README.html",
+              file=sys.stderr)
         sys.exit(1)
 
     # Extract the filenames from the arguments
@@ -126,10 +134,12 @@ def main():
     in_paragraph = False  # Flag to track if we're inside a paragraph
 
     # Open the Markdown file for reading and the output file for writing
-    with open(markdown_file, 'r') as md_file, open(output_file, 'w') as html_file:
+    with open(markdown_file, 'r') as md_file, \
+            open(output_file, 'w') as html_file:
         for line in md_file:
             # Convert each line from Markdown to HTML
-            html_line, in_ulist, in_olist, in_paragraph = convert_line_to_html(line, in_ulist, in_olist, in_paragraph)
+            html_line, in_ulist, in_olist, in_paragraph = convert_line_to_html(
+                line, in_ulist, in_olist, in_paragraph)
             html_file.write(html_line)
 
         # Close any open paragraphs and lists at the end of the file
@@ -142,6 +152,7 @@ def main():
 
     # Exit successfully
     sys.exit(0)
+
 
 if __name__ == "__main__":
     main()
