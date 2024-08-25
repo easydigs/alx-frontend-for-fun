@@ -1,0 +1,48 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: baseline;
+  }
+  
+  .box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+  }
+  
+  .box1, .box5 {
+    height: 4.5rem;
+    width: 7rem;
+    font-size: 1.7rem;
+  }
+  
+  .box2, .box4 {
+    height: 6rem;
+    width: 9rem;
+    font-size: 2.5rem
+  }
+  
+  .box3 {
+    height: 12rem;
+    width: 19rem;
+    background: #005377cb;
+    font-size: 7rem;
+  }
+  
+  .box1 {
+    background: #ff0000dc; 
+  }
+  
+  .box2 {
+    background: #690099;
+  }
+  
+  .box4 {
+    background: #db05d1;
+  }
+  
+  .box5 {
+    background: #ff5e00f8;
+  }
