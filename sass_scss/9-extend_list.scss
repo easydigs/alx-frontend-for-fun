@@ -1,0 +1,19 @@
+/* Extended */
+
+// $font-size: 12px;
+// $text-color-success: #00FF00;
+// $text-color-warning: #FF0000;
+
+.info {
+    font-size: 12px;
+}
+
+.success {
+    @extend .info;
+    color: #00FF00;
+}
+
+.warning {
+    @extend .success;
+    color: #FF0000;
+}

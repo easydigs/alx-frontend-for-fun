@@ -1,0 +1,9 @@
+/* Mixin */
+
+@mixin my-mixin($left, $right) {
+    margin-left: $left;
+    margin-right: $right;
+}
+
+body { @include my-mixin(10px, 10px); }
+div { @include my-mixin(15px, 15px); }
