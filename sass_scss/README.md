@@ -19,4 +19,4 @@
 - How to import a Sass file
 - How to use mixins
 - How to declare extend/inheritance styles
-- How to manipulate operator
+- How to manipulate operators
