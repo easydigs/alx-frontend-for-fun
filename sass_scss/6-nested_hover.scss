@@ -1,12 +1,9 @@
-/* Nested hover */
-
-$text-color: #FF0000;
-$hover-button: #00FF00;
+/* My style */
 
 button {
-  color: $text-color;
+    color: #FF0000;
   
-  &:hover {
-    color: $hover-button;
+    &:hover {
+      color: #00FF00;
+    }
   }
-}
