@@ -1,7 +1,7 @@
 /* Sorts Variables */
 
-$list_to_sort: john, anna, zoe, kim, felicia, carrie;
+$list_to_sort: john anna zoe kim felicia carrie;
 
+// Sort the list and print it using @debug
 $sorted_list: sort($list_to_sort);
-
 @debug $sorted_list;
